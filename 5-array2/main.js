@@ -135,3 +135,60 @@ let htmls = newTopics.map(function(course) {
     `;
 });
 console.log(htmls.join(''));
+
+
+
+// =============== Viết hàm xếp lại mảng object theo giá trị trong object ===============
+const inventories = [
+    { name: 'asparagus', type: 'vegetable', quantity: 5 },
+    { name: 'banana', type: 'fruit', quantity: 1 },
+    { name: 'goat', type: 'meat', quantity: 26 },
+    { name: 'cherries', type: 'fruit', quantity: 4 },
+    { name: 'fish', type: 'meat', quantity: 30 },
+];
+// Cách 1: tạo function groupBy
+const groupBy = function(objectArray, key) {
+    return objectArray.reduce((output, currentValue) => {
+        let groupKey = currentValue[key];
+        if (!output[groupKey]) {
+            output[groupKey] = [];
+        }
+        output[groupKey].push(currentValue);
+        return output;
+    }, {});
+};
+let result = groupBy(inventories, 'type')
+console.log(result);
+
+// Cách 2: dùng reduce 
+const groupByType = inventories.reduce((output, currentValue) => {
+    const { name } = currentValue;
+    const { type } = currentValue;
+    const { quantity } = currentValue;
+    console.log( name );
+    console.log( type );
+    console.log( quantity );
+    output[type] = output[type] ?? [];
+    output[type].push(currentValue);
+    return output;
+  }, {});
+console.log(groupByType);
+
+// Cách 3: Viết 1 prototype GroupBy
+Array.prototype.groupBy = function (callback) {
+    if (typeof callback !== 'function') {
+        throw new Error("groupBy take a function as only parameter");
+    }
+    return this.reduce((output, currentValue) => {
+        let groupKey = callback(currentValue);
+        if (!output[groupKey]) {
+            output[groupKey] = [];
+        }
+        output[groupKey].push(currentValue);
+        return output;
+    }, {});
+}
+const test_groupBy = inventories.groupBy(function(inventory) {
+    return inventory.type;
+})
+console.log(test_groupBy);
