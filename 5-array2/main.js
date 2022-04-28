@@ -123,9 +123,7 @@ let topics = [
 let newTopics = topics.reduce(function (course, currentValue){
     return course.concat(currentValue.courses)
 }, []);
-
 console.log(newTopics);
-
 let htmls = newTopics.map(function(course) {
     return `
         <div>
@@ -136,6 +134,199 @@ let htmls = newTopics.map(function(course) {
 });
 console.log(htmls.join(''));
 
+
+// =================== map2() ===================
+Array.prototype.map2 = function(callback) {
+    let output = [], arrayLength = this.length;
+    for(let i = 0; i < arrayLength; i++){
+        // this[i]: lấy giá trị tại vị trí index = i;
+        // i: lấy vị trị index
+        let result = callback(this[i]);
+        output.push(result);
+    }
+    return output;
+}
+let coursesMap = ['Javascript', 'PHP', 'Java'];
+let htmlsMap = coursesMap.map2(function(course) {
+    return `<h2>${course}</h2>`;
+})
+console.log(htmlsMap.join(''));
+
+
+// =================== forEach2() ===================
+Array.prototype.forEach2 = function(callback) {
+    let output = [];
+    for(var index in this){
+        if(this.hasOwnProperty(index)){
+            output.push(callback(this[index], index, this));
+        }
+    }
+    return output;
+}
+let coursesForEach = new Array(1000);
+coursesForEach.push('abc', 'xyz')
+coursesForEach.forEach2(function(course, index, array){
+    console.log(course, index, array);
+})
+let htmlsForEach = coursesForEach.forEach2(function(course) {
+    return `<h2>${course}</h2>`
+})
+console.log(htmlsForEach.join(''));
+
+
+// =================== reduce2() ===================
+Array.prototype.reduce2 = function(callback, result) {
+    let arrayLength = this.length;
+    let i = 0;
+    // console.log(arguments[2]);
+    if(arguments.length < 2) {
+        i = 1
+        result = this[0];
+    }
+    for(i; i < arrayLength; i++){
+        result = callback(result, this[i], i, this)
+    }
+    return result
+}
+let coursesReduce = [1, 2, 3, 4, 5];
+let htmlsReduce = coursesReduce.reduce2(function(total, course) {
+    return total + course;
+}, 0, 'abc')
+console.log(htmlsReduce);
+
+// =================== find2() ===================
+let coursesFind = [
+    {
+        name: "Javascript",
+        point: 9,
+    },
+    {
+        name: "PHP",
+        point: 8,
+    },
+    {
+        name: "ReactJs",
+        point: 10,
+    },
+];
+Array.prototype.find2 = function(callback) {
+    arrayLength = this.length;
+    for(let i = 0; i < arrayLength; i++) {
+        if(callback(this[i], i, this)) {
+            return this[i] ;
+        }
+    }
+}
+let htmlsFind = coursesFind.find2(function(course, number, arr) {
+    return course.name === "PHP";
+})
+console.log(htmlsFind);
+
+
+// =================== filter2() ===================
+Array.prototype.filter2 = function(callback) {
+    let output = [], result;
+    for(var index in this){
+        if(this.hasOwnProperty(index)) {
+            result = callback(this[index], index, this);
+            if(result) {
+                output.push(this[index]);
+            }
+        }
+    }
+    return output;
+}
+let coursesFilter = [
+    {
+        name: 'Javascript',
+        coin: 690
+    },
+    {
+        name: 'PHP',
+        coin: 790
+    },
+    {
+        name: 'ReactJs',
+        coin: 890
+    }
+];
+let htmlsFilter = coursesFilter.filter2(function(course, index, arr){
+    return course.coin > 700
+})
+console.log(htmlsFilter);
+
+// =================== some2() ===================
+Array.prototype.some2 = function(callback) {
+    let output = false;
+    for(var index in this) {
+        if(this.hasOwnProperty(index)) {
+            let result = callback(this[index], index, this);
+            if(result) {
+                output = true;
+                break;
+            }
+            
+        }
+    }
+    return output;
+}
+let coursesSome = [
+    {
+        name: 'Javascript',
+        coin: 690,
+        isFinish: false,
+    },
+    {
+        name: 'PHP',
+        coin: 790,
+        isFinish: false,
+    },
+    {
+        name: 'ReactJs',
+        coin: 890,
+        isFinish: false,
+    }
+];
+let resultSome = coursesSome.some2(function(course, index, arr) {
+    return course.coin > 690;
+})
+console.log(resultSome);
+
+// =================== every2() ===================
+Array.prototype.every2 = function(callback) {
+    let output = true;
+    for(var index in this) {
+        if(this.hasOwnProperty(index)){
+            let result = callback(this[index], index, this)
+            if(!result){
+                output = false;
+                break;
+            }
+        }
+    }
+    return output
+}
+coursesEvery = [
+    {
+        name: 'Javascript',
+        coin: 690,
+        isFinish: true,
+    },
+    {
+        name: 'PHP',
+        coin: 790,
+        isFinish: false,
+    },
+    {
+        name: 'ReactJs',
+        coin: 890,
+        isFinish: true,
+    }
+];
+let htmlsEvery = coursesEvery.every2(function(course, index, arr) {
+    return course.coin > 690
+})
+console.log(htmlsEvery);
 
 
 // =============== Viết hàm xếp lại mảng object theo giá trị trong object ===============
