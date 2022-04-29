@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch</title>
+</head>
+<body>
+    <!-- <ul id="photos_block"></ul> -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr;">
+        <div>
+            <h2>Danh sách khoá học</h2>
+            <ul id="list_courses"></ul>
+        </div>
+        <div style="display: flex; justify-content: center">
+            <fieldset style="width: 100%; height: 200px; display: flex; justify-content: center; align-items: center;">
+                <legend>Tạo khoá học</legend>
+                <form style="width: 90%;">
+                    <div class="form-name" style="display: flex; flex-direction: column; margin: 10px 0 10px 0;">
+                        <label for="name">Tên khoá học</label>
+                        <input style="padding: 5px 10px; outline: none;" type="text" name="name" id="name">
+                    </div>
+                    <div class="form-description" style="display: flex; flex-direction: column; margin: 10px 0 10px 0;">
+                        <label for="description">Miêu tả</label>
+                        <textarea name="description" id="description" cols="20" rows="5" style="resize: none; padding: 5px 10px; outline: none;"></textarea>
+                    </div>
+                    <div style="width: 50%; display: flex; flex-direction: column; margin: 10px 0 10px 0;">
+                        <span class="form-btn">
+                            <button id="btn-submit">Submit</button>
+                        </span>
+                    </div>
+                </form>
+            </fieldset>
+        </div>
+    </div>
+    <script src="./fetch.js"></script>
+</body>
+</html>

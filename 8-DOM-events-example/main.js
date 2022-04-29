@@ -16,7 +16,6 @@ inputTextElement.onkeyup = function(e) {
     }
 }
 
-
 let inputCheckboxElement = document.querySelector('input[type="checkbox"]');
 console.log(inputCheckboxElement);
 inputCheckboxElement.onchange = function(e) {

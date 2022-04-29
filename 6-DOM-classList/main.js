@@ -22,3 +22,13 @@ console.log(test);
 console.log(img);
 console.log(a_href1);
 console.log(a_href2);
+
+let number = 1;
+const run_time = setInterval(function() {
+    console.log(number);
+    number++;
+    if(number >  9) {
+        clearInterval(run_time);
+        console.log("Done!");
+    }
+}, 1000);

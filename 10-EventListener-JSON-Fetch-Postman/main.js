@@ -2,6 +2,13 @@
 // 2. JSON
 // 3. Promise
 // 4. Fetch
+//      - JSON server: API Server (fake) / Mock API
+//      - CRUD
+//          - Create: Tạo mới -> POST
+//          - Read: Lấy dữ liệu -> GET
+//          - Update: Chỉnh sửa -> PUT / PATCH
+//          - Delete: Xoá       -> DELETE
+//      - Postman
 // 5. DOM location
 // 6. Local storage
 // 7. Session storage
@@ -50,4 +57,69 @@ console.log(JSON.stringify('DUC ANH'));
 
 
 // ================= Promise =================
+// sync/async : đồng bộ hoá / bất đồng bộ
+setTimeout(function anvc() {
+    console.log(1);
+}, 1000);
+console.log(2);
 
+// callback hell
+setTimeout(function(){
+    console.log(1); // việc 1
+    setTimeout(function(){
+        console.log(2); // việc 2
+        setTimeout(function(){
+            console.log(3); // việc 3
+            setTimeout(function(){
+                console.log(4); // việc 4
+            }, 1000)
+        }, 1000)
+    }, 1000)
+}, 1000)
+
+// Cách hoạt động của Promise thay thế cho callbackhell
+// trong promise được truyền vào 1 function
+let promise = new Promise(
+    // Executor: thi hành
+    function(resolve, reject) {
+        // Logic
+        // Thành công: resolve()
+        // Thất bại: reject()
+        resolve();
+        // reject();
+    }
+)
+promise
+    .then(function() {
+        return 1;
+    })
+    .then(function(data) {
+        console.log(data);
+        return 2;
+    })
+    .then(function(data) {
+        console.log(data);
+    })
+    .catch(function() {
+        console.log("Failure!");
+    })
+    .finally(function() {
+        console.log("Done!");
+    })
+
+let promise1 = new Promise(function(resolve) {
+    setTimeout(function() {
+        resolve([1]);
+    }, 1000)
+});
+let promise2 = new Promise(function(resolve) {
+    setTimeout(function() {
+        resolve([2,3]);
+    }, 3000)
+});
+Promise.all([promise1, promise2])
+    .then(function(result) {
+        let result1 = result[0];
+        let result2 = result[1];
+        console.log(result1.concat(result2));
+    })

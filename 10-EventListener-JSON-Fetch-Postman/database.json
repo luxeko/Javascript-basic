@@ -1,0 +1,29 @@
+{
+  "courses": [
+    {
+      "id": 2,
+      "name": "PHP",
+      "description": "Fullstack PHP"
+    },
+    {
+      "id": 3,
+      "name": "Java",
+      "description": "Fullstack Java"
+    },
+    {
+      "name": "Javascript",
+      "description": "Fullstack Javascript",
+      "id": 5
+    },
+    {
+      "name": "VueJs",
+      "description": "VueJs",
+      "id": 6
+    },
+    {
+      "name": "Laravel",
+      "description": "Fullstack Laravel",
+      "id": 7
+    }
+  ]
+}
