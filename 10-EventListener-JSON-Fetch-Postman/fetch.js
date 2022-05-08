@@ -53,7 +53,7 @@ function renderCourses(courses) {
                     <p>${course.description}</p></div>
                 <div>
                     <span>
-                        <input type="submit" onclick="handleUpdateCourse(${course.id})" value="Sửa">
+                        <input type="submit" onclick="handleEditCourse(${course.id})" value="Sửa">
                         <input id="btn-delete" type="submit" onclick="handleDeleteCourse(${course.id})" value="Xoá">
                     </span>
                 </div>
@@ -91,7 +91,7 @@ function updateCourse(data, id, callback) {
         })
         .then(callback)
 }
-function handleUpdateCourse(id) {
+function handleEditCourse(id) {
     document.querySelector("#btn-submit").remove();
     const name = document.querySelector('input[name="name"]');
     const description = document.querySelector('textarea[name="description"]');
