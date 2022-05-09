@@ -9,7 +9,7 @@
 // 9. Rest parameters
 // 10. Spread
 // 11. Tagged template literal
-// 12. Modules
+// 12. Modules: import / export
 
 
 // -------------- Arrow function --------------
@@ -96,3 +96,12 @@ function abvf(...params) {
     console.log(params);
 }
 abvf();
+
+// -------------- Modules --------------
+
+import logger_import, {
+    TYPE_LOG,
+    TYPE_WARN,
+    TYPE_ERROR
+} from './logger.js';
+logger_import('test message...', TYPE_WARN)
