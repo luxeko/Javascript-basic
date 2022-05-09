@@ -9,7 +9,7 @@
 // 9. Rest parameters
 // 10. Spread
 // 11. Tagged template literal
-// 12. Modules
+// 12. Modules: import / export
 
 
 // -------------- Arrow function --------------
@@ -99,7 +99,6 @@ function abcde(...rest) {
 abcde(...arr_spread);
 
 
-
 // -------------- Tagged template literal --------------
 function highlight([first, ...strings], ...values) {
     console.log('first', first);
@@ -112,3 +111,13 @@ const course_tagged = 'Javascript';
 
 const htmls = highlight`Học lập trình ${course_tagged} tại ${brand} nhe`;
 console.log(htmls); // => undefined
+
+
+// -------------- Modules --------------
+
+import logger_import, {
+    TYPE_LOG,
+    TYPE_WARN,
+    TYPE_ERROR
+} from './logger.js';
+logger_import('test message...', TYPE_WARN)
