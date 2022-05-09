@@ -88,11 +88,27 @@ const {name3: parentName3, children: { name3 : childrenName3 }} = course3
 console.log(parentName3); // => Javascript
 console.log(childrenName3); // => ReactJs
 
-const test = ['Test 1', 'Test 2', 'Test 3'];
 
-console.log(...test);
+// -------------- Spread --------------
+const arr_spread = ['Test 1', 'Test 2', 'Test 3'];
+console.log(...arr_spread); // => Test 1 Test 2 Test 3
 
-function abvf(...params) {
-    console.log(params);
+function abcde(...rest) {
+    console.log(rest); // => ['Test 1', 'Test 2', 'Test 3']
 }
-abvf();
+abcde(...arr_spread);
+
+
+
+// -------------- Tagged template literal --------------
+function highlight([first, ...strings], ...values) {
+    console.log('first', first);
+    console.log('strings', strings);
+    console.log('values', values);
+}
+
+const brand = 'F8';
+const course_tagged = 'Javascript';
+
+const htmls = highlight`Học lập trình ${course_tagged} tại ${brand} nhe`;
+console.log(htmls); // => undefined
