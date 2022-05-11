@@ -171,7 +171,6 @@ header h2 {
   height: 10px;
   background-color: var(--primary-color);
   cursor: pointer;
-  border-radius: 50%;
 }
 
 .volume::-webkit-slider-runnable-track {
