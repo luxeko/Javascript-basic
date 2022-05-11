@@ -25,6 +25,8 @@ const prevBtn = $('.btn-prev');
 const progress = $('#progress');
 const randomBtn = $('.btn-random');
 const repeatBtn = $('.btn-repeat');
+const durationTime = $('.timer .duration');
+const remainingTime = $('.remaining');
 const app = {
     currentIndex : 0,
     isPLaying: false,
@@ -133,7 +135,6 @@ const app = {
             player.classList.remove('playing');
             app.isPLaying = false;
             cdThumbAnimate.pause();
-
         }
 
         // Update thanh chạy song
@@ -143,8 +144,12 @@ const app = {
             if (audio.duration) {
                 // Quy đổi thời gian chênh lệch ra %
                 // Vì input[progress] có giá trị min = 0 -> max = 100;
-                const progressPercent = Math.floor(audio.currentTime / audio.duration * 100);
-                progress.value = progressPercent;
+                setInterval(() => {
+                    const progressPercent = Math.floor(audio.currentTime / audio.duration * 100);
+                    progress.value = progressPercent;
+                    const progressDanger = $('.progress-danger');
+                    progressDanger.style.width = progressPercent + "%";
+                },300)
             }
         }
 
@@ -176,10 +181,10 @@ const app = {
             } else {
                 audio.pause();
             }
-            setTimeout(() => {
-                app.songs = app.songs.slice(app.currentIndex).concat(app.songs.slice(0, app.currentIndex));
-                app.render();
-            }, 300)
+            // setTimeout(() => {
+            //     app.songs = app.songs.slice(app.currentIndex).concat(app.songs.slice(0, app.currentIndex));
+            //     app.render();
+            // }, 300)
             // app.scrollToActiveSong();
         }
 
@@ -218,10 +223,10 @@ const app = {
 
         // Xừ lý song khi kết thúc
         audio.onended = function () {
-            if(app.isRepeat === false) {
+            if(app.isRepeat) {
                 audio.play();
             } else {
-                if(app.isRandom === false) {
+                if(app.isRandom) {
                     do {
                         newIndex = Math.floor(Math.random() * app.songs.length);
                     } while (newIndex == app.currentIndex);
@@ -246,7 +251,7 @@ const app = {
                 app.isRepeat = true
                 repeatBtn.classList.remove('active');
             }
-        }
+        }       
 
     },
     loadCurrentSong: function () {
@@ -254,24 +259,36 @@ const app = {
         cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`;
         audio.src = this.currentSong.path;
     },
-    // scrollToActiveSong: function () {
-    //     setTimeout(() => {
-    //         $('.song.active').scrollIntoView({
-    //             behavior: 'smooth',
-    //             block: 'nearest'
-    //         });
-    //     }, 300)
-    // },
+    displayTimer: function () {
+        const {duration, currentTime} = audio;
+        remainingTime.textContent = this.formatTimer(currentTime);
+        if(!duration) {
+            durationTime.textContent = "00:00";
+        } else {
+            durationTime.textContent = this.formatTimer(duration);
+        }
+    },
+    formatTimer: function (number) {
+        const minutes = Math.floor(number/ 60);
+        const seconds = Math.floor(number - minutes * 60);
+        return `${minutes}:${seconds}`;
+    },
     start: function() {
         // Định nghĩa các thuộc tính cho object
         this.defineProperties();
-
+        
         // Lắng nghe / xử lý các sự kiện (DOM events)
         this.handleEvents();
-
+        
         // Tải thông tin bài hát đầu tiền vào UI khi chạy ứng dụng
         this.loadCurrentSong();
 
+        // Chạy timer
+        this.displayTimer();
+        setInterval(() => {
+            this.displayTimer();
+        }, 500);
+        
         // Render playlist
         this.render();
     }

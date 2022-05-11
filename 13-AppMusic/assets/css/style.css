@@ -22,7 +22,11 @@ html {
 
 .player {
   position: relative;
-  max-width: 480px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
@@ -41,10 +45,12 @@ html {
 .dashboard {
   padding: 16px 16px 14px;
   background-color: #fff;
-  position: fixed;
   top: 0;
   width: 100%;
+  margin: 10px;
+  border-radius: 10px;
   max-width: 480px;
+  max-height: 480px;
   border-bottom: 1px solid #ebebeb;
 }
 
@@ -129,10 +135,6 @@ header h2 {
   height: 3px;
   background: #d3d3d3;
   outline: none;
-  opacity: 0.7;
-  -webkit-transition: 0.2s;
-  -webkit-transition: opacity 0.2s;
-  transition: opacity 0.2s;
   border-radius: 10px;
 }
 
@@ -140,16 +142,44 @@ header h2 {
   -webkit-appearance: none;
   appearance: none;
   width: 12px;
-  height: 6px;
+  height: 12px;
   background-color: var(--primary-color);
   cursor: pointer;
-  border-radius: 30%;
+  border-radius: 50%;
+}
+
+.progress-danger {
+  width: 0%;
+  height: 5px;
+  background-color: var(--primary-color);
+  position: absolute;
+  top: 30%;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
 }
 
 /* PLAYLIST */
 .playlist {
-  margin-top: 408px;
-  padding: 12px;
+  max-width: 480px;
+  max-height: 480px;
+  margin: 10px;
+  border-radius: 10px;
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+  border-bottom: 1px solid #ebebeb;
+}
+
+.playlist::-webkit-scrollbar {
+  width: 10px;
+}
+
+.playlist::-webkit-scrollbar-track {
+  background: #d3d3d3;
+}
+
+.playlist::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 10px;
 }
 
 .song {
@@ -165,6 +195,11 @@ header h2 {
   border-radius: 5px;
   -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
           box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  margin-right: 5px;
+}
+
+.song:last-child {
+  margin-bottom: 0px;
 }
 
 .song.active {
@@ -210,5 +245,20 @@ header h2 {
   padding: 16px 8px;
   color: #999;
   font-size: 18px;
+}
+
+.timer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 40px;
 }
 /*# sourceMappingURL=style.css.map */

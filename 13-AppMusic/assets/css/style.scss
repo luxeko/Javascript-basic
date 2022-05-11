@@ -20,7 +20,9 @@
   
   .player {
     position: relative;
-    max-width: 480px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1000px;
     margin: 0 auto;
   }
   
@@ -39,10 +41,12 @@
   .dashboard {
     padding: 16px 16px 14px;
     background-color: #fff;
-    position: fixed;
     top: 0;
     width: 100%;
+    margin: 10px;
+    border-radius: 10px;
     max-width: 480px;
+    max-height: 480px;
     border-bottom: 1px solid #ebebeb;
   }
   
@@ -114,25 +118,45 @@
     height: 3px;
     background: #d3d3d3;
     outline: none;
-    opacity: 0.7;
-    -webkit-transition: 0.2s;
-    transition: opacity 0.2s;
     border-radius: 10px;
   }
   .progress::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 12px;
-    height: 6px;
+    height: 12px;
     background-color: var(--primary-color);
     cursor: pointer;
-    border-radius: 30%;
+    border-radius: 50%;
   }
-  
+  .progress-danger {
+        width: 0%;
+        height: 5px;
+        background-color: var(--primary-color);
+        position: absolute;
+        top: 30%;
+        border-bottom-left-radius: 10px;
+        border-top-left-radius: 10px;
+  }
   /* PLAYLIST */
   .playlist {
-    margin-top: 408px;
-    padding: 12px;
+    max-width: 480px;
+    max-height: 480px;
+    margin: 10px;
+    border-radius: 10px;
+    scroll-behavior: smooth;
+    overflow-y: scroll;
+    border-bottom: 1px solid #ebebeb;
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+    &::-webkit-scrollbar-track {
+        background: #d3d3d3;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: var(--primary-color);
+        border-radius: 10px;
+    }
   }
   
   .song {
@@ -143,8 +167,11 @@
     padding: 8px 16px;
     border-radius: 5px;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+    margin-right: 5px;
   }
-  
+  .song:last-child{
+      margin-bottom: 0px;
+  }
   .song.active {
     background-color: var(--primary-color);
   }
@@ -187,4 +214,11 @@
     color: #999;
     font-size: 18px;
   }
-  
+  .timer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 40px;
+  }
