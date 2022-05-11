@@ -263,15 +263,13 @@ const app = {
             if (audio.duration) {
                 // Quy đổi thời gian chênh lệch ra %
                 // Vì input[progress] có giá trị min = 0 -> max = 100;
-                const progressPercent = Math.floor(audio.currentTime / audio.duration * 100);
+                const progressPercent = audio.currentTime / audio.duration * 100;
                 progress.value = progressPercent;
-                
-                const progressDanger = $('.progress-danger');
-                progressDanger.style.width = progressPercent + "%";
+                progress.style = app.changeProgress(progressPercent);
             }
         }
         // Xử lý khi tăng/giảm/muted volume
-        volume.onchange = function () {
+        volume.oninput = function () {
             audio.volume = volume.value/100;
             volume.style = app.changeVolume(audio.volume);
         }
@@ -283,20 +281,21 @@ const app = {
             audio.muted = true
             muteIcon.style.display = 'block';
             volumeIcon.style.display = 'none';
+            volume.style.display = 'none';
         }
         muteIcon.onclick = function () {
             audio.muted = false
             muteIcon.style.display = 'none';
             volumeIcon.style.display = 'block';
+            volume.style.display = 'block';
         }
 
         // Xử lý khi tua song
-        progress.onchange = function (e) {
+        progress.oninput = function (e) {
             // Công thức tính thời gian tại vị trí bất kỳ của bài hát
             //  = Tổng thời gian * giá trị % tại vị trí đó : 100
             const seekTime = audio.duration * (e.target.value / 100);
             audio.currentTime = seekTime;
-            console.log(seekTime);
         }
 
         // Xử lý khi next song
@@ -403,6 +402,7 @@ const app = {
         this.isRepeat = this.config.isRepeat;
         randomBtn.classList.toggle('active', this.isRandom);
         repeatBtn.classList.toggle('active', this.isRepeat);
+        
     },
     displayTimer: function () {
         const {duration, currentTime} = audio;
@@ -430,6 +430,10 @@ const app = {
         const percentage = (volume.value - volume.min)/(volume.max - volume.min) * 100;
         return 'background: linear-gradient(to right, #ec1f55, #ec1f55 ' + percentage + '%, #d3edff ' + percentage + '%, #dee1e2 100%)'
     },
+    changeProgress: function () {
+        const percentage =  audio.currentTime / audio.duration * 100;
+        return 'background: linear-gradient(to right, #ec1f55, #ec1f55 ' + percentage + '%, #d3edff ' + percentage + '%, #dee1e2 100%)'
+    },
     start: function() {
         // Gán cấu hình từ config vào app music(đọc từ local storage rồi gán vào ứng dụng)
         this.loadConfig();
@@ -451,7 +455,7 @@ const app = {
         
         // Mặc định volume 
         audio.volume = volume.value/100;
-        volume.style = this.changeVolume(volume.value)
+        volume.style = this.changeVolume(volume.value);
 
         // Render playlist
         this.render();
