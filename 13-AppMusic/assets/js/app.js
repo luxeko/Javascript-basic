@@ -29,6 +29,7 @@ const durationTime = $('.timer .duration');
 const remainingTime = $('.remaining');
 const volume = $('.volume');
 const volumeIcon = $('.icon-volume');
+const muteIcon = $('.icon-mute');
 const app = {
     currentIndex : 0,
     isPLaying: false,
@@ -262,7 +263,7 @@ const app = {
                 progressDanger.style.width = progressPercent + "%";
             }
         }
-        // Xử lý khi tăng/giảm volume
+        // Xử lý khi tăng/giảm/muted volume
         volume.onchange = function () {
             audio.volume = volume.value/100;
             volume.style = app.changeVolume(audio.volume);
@@ -272,14 +273,16 @@ const app = {
             volume.style = app.changeVolume(audio.volume);
         }
         volumeIcon.onclick = function () {
-            if(!app.isMute) {
-                audio.muted = true;
-                app.isMute = true;
-            } else {
-                audio.muted = false;
-                app.isMute = false;
-            }
+            audio.muted = true
+            muteIcon.style.display = 'block';
+            volumeIcon.style.display = 'none';
         }
+        muteIcon.onclick = function () {
+            audio.muted = false
+            muteIcon.style.display = 'none';
+            volumeIcon.style.display = 'block';
+        }
+
         // Xử lý khi tua song
         progress.onchange = function (e) {
             // Công thức tính thời gian tại vị trí bất kỳ của bài hát

@@ -298,6 +298,12 @@ header h2 {
   margin-right: 10px;
 }
 
+.icon-mute {
+  display: none;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
 @media only screen and (max-width: 993px) {
   .player {
     -webkit-box-align: center;
