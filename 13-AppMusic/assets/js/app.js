@@ -428,11 +428,11 @@ const app = {
     },
     changeVolume: function() {
         const percentage = (volume.value - volume.min)/(volume.max - volume.min) * 100;
-        return 'background: linear-gradient(to right, #ec1f55, #ec1f55 ' + percentage + '%, #d3edff ' + percentage + '%, #dee1e2 100%)'
+        return 'background: linear-gradient(to right, #7380ec, #7380ec ' + percentage + '%, #d3edff ' + percentage + '%, #dee1e2 100%)'
     },
     changeProgress: function () {
         const percentage =  audio.currentTime / audio.duration * 100;
-        return 'background: linear-gradient(to right, #ec1f55, #ec1f55 ' + percentage + '%, #d3edff ' + percentage + '%, #dee1e2 100%)'
+        return 'background: linear-gradient(to right, #7380ec, #7380ec ' + percentage + '%, #d3edff ' + percentage + '%, #dee1e2 100%)'
     },
     start: function() {
         // Gán cấu hình từ config vào app music(đọc từ local storage rồi gán vào ứng dụng)
