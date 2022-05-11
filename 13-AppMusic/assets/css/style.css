@@ -126,13 +126,14 @@ header h2 {
 .progress {
   width: 100%;
   -webkit-appearance: none;
-  height: 6px;
+  height: 3px;
   background: #d3d3d3;
   outline: none;
   opacity: 0.7;
   -webkit-transition: 0.2s;
   -webkit-transition: opacity 0.2s;
   transition: opacity 0.2s;
+  border-radius: 10px;
 }
 
 .progress::-webkit-slider-thumb {
@@ -142,6 +143,7 @@ header h2 {
   height: 6px;
   background-color: var(--primary-color);
   cursor: pointer;
+  border-radius: 30%;
 }
 
 /* PLAYLIST */
