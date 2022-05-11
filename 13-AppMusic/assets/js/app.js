@@ -27,12 +27,123 @@ const randomBtn = $('.btn-random');
 const repeatBtn = $('.btn-repeat');
 const durationTime = $('.timer .duration');
 const remainingTime = $('.remaining');
+const volume = $('.volume');
+const volumeIcon = $('.icon-volume');
 const app = {
     currentIndex : 0,
     isPLaying: false,
     isRandom: false,
     isRepeat: false,
+    isMute: false,
     songs: [
+        {
+            name: 'Em bé',
+            singer: 'Amee - Karik',
+            path: './assets/music/music1.mp3',
+            image: './assets/image/amee.jpg'
+        },
+        {
+            name: 'Bánh mì không',
+            singer: 'Đạt G - Du Uyên',
+            path: './assets/music/music2.mp3',
+            image: './assets/image/cardiB.jpg'
+        },
+        {
+            name: 'Bad guy',
+            singer: 'Billie Eilish',
+            path: './assets/music/music3.mp3',
+            image: './assets/image/billieeilish.jpg'
+        },
+        {
+            name: 'COPYCAT',
+            singer: 'Billie Eilish',
+            path: './assets/music/music4.mp3',
+            image: './assets/image/billieeilish.jpg'
+        },
+        {
+            name: 'WAP',
+            singer: 'Cardi B - Mega Thee',
+            path: './assets/music/music5.mp3',
+            image: './assets/image/cardiB.jpg'
+        },
+        {
+            name: 'Bodak Yellow',
+            singer: 'Cardi B',
+            path: './assets/music/music6.mp3',
+            image: './assets/image/cardiB.jpg'
+        },
+        {
+            name: 'Em bé',
+            singer: 'Amee - Karik',
+            path: './assets/music/music1.mp3',
+            image: './assets/image/amee.jpg'
+        },
+        {
+            name: 'Bánh mì không',
+            singer: 'Đạt G - Du Uyên',
+            path: './assets/music/music2.mp3',
+            image: './assets/image/cardiB.jpg'
+        },
+        {
+            name: 'Bad guy',
+            singer: 'Billie Eilish',
+            path: './assets/music/music3.mp3',
+            image: './assets/image/billieeilish.jpg'
+        },
+        {
+            name: 'COPYCAT',
+            singer: 'Billie Eilish',
+            path: './assets/music/music4.mp3',
+            image: './assets/image/billieeilish.jpg'
+        },
+        {
+            name: 'WAP',
+            singer: 'Cardi B - Mega Thee',
+            path: './assets/music/music5.mp3',
+            image: './assets/image/cardiB.jpg'
+        },
+        {
+            name: 'Bodak Yellow',
+            singer: 'Cardi B',
+            path: './assets/music/music6.mp3',
+            image: './assets/image/cardiB.jpg'
+        },
+        {
+            name: 'Em bé',
+            singer: 'Amee - Karik',
+            path: './assets/music/music1.mp3',
+            image: './assets/image/amee.jpg'
+        },
+        {
+            name: 'Bánh mì không',
+            singer: 'Đạt G - Du Uyên',
+            path: './assets/music/music2.mp3',
+            image: './assets/image/cardiB.jpg'
+        },
+        {
+            name: 'Bad guy',
+            singer: 'Billie Eilish',
+            path: './assets/music/music3.mp3',
+            image: './assets/image/billieeilish.jpg'
+        },
+        {
+            name: 'COPYCAT',
+            singer: 'Billie Eilish',
+            path: './assets/music/music4.mp3',
+            image: './assets/image/billieeilish.jpg'
+        },
+        {
+            name: 'WAP',
+            singer: 'Cardi B - Mega Thee',
+            path: './assets/music/music5.mp3',
+            image: './assets/image/cardiB.jpg'
+        },
+        {
+            name: 'Bodak Yellow',
+            singer: 'Cardi B',
+            path: './assets/music/music6.mp3',
+            image: './assets/image/cardiB.jpg'
+        },
         {
             name: 'Em bé',
             singer: 'Amee - Karik',
@@ -73,7 +184,7 @@ const app = {
     render: function () {
         const htmls = this.songs.map((song, index) => {
             return `
-                <div class="song ${index === 0 ? 'active': ''}">
+                <div class="song ${index === this.currentIndex ? 'active': ''}" data-index="${index}">
                     <div class="thumb" style="background-image: url('${song.image}')"></div>
                     <div class="body">
                         <h3 class="title">${song.name}</h3>
@@ -144,15 +255,31 @@ const app = {
             if (audio.duration) {
                 // Quy đổi thời gian chênh lệch ra %
                 // Vì input[progress] có giá trị min = 0 -> max = 100;
-                setInterval(() => {
-                    const progressPercent = Math.floor(audio.currentTime / audio.duration * 100);
-                    progress.value = progressPercent;
-                    const progressDanger = $('.progress-danger');
-                    progressDanger.style.width = progressPercent + "%";
-                },300)
+                const progressPercent = Math.floor(audio.currentTime / audio.duration * 100);
+                progress.value = progressPercent;
+                
+                const progressDanger = $('.progress-danger');
+                progressDanger.style.width = progressPercent + "%";
             }
         }
-
+        // Xử lý khi tăng/giảm volume
+        volume.onchange = function () {
+            audio.volume = volume.value/100;
+            volume.style = app.changeVolume(audio.volume);
+        }
+        volume.onmousemove = function () {
+            audio.volume = volume.value/100;
+            volume.style = app.changeVolume(audio.volume);
+        }
+        volumeIcon.onclick = function () {
+            if(!app.isMute) {
+                audio.muted = true;
+                app.isMute = true;
+            } else {
+                audio.muted = false;
+                app.isMute = false;
+            }
+        }
         // Xử lý khi tua song
         progress.onchange = function (e) {
             // Công thức tính thời gian tại vị trí bất kỳ của bài hát
@@ -181,11 +308,9 @@ const app = {
             } else {
                 audio.pause();
             }
-            // setTimeout(() => {
-            //     app.songs = app.songs.slice(app.currentIndex).concat(app.songs.slice(0, app.currentIndex));
-            //     app.render();
-            // }, 300)
-            // app.scrollToActiveSong();
+            app.render();
+          
+            app.scrollToActiveSong();
         }
 
         // Xử lý khi prev song
@@ -208,6 +333,7 @@ const app = {
                 audio.pause();
             }
             app.render();
+            app.scrollToActiveSong();
         }
 
         // Highlight random btn
@@ -226,33 +352,44 @@ const app = {
             if(app.isRepeat) {
                 audio.play();
             } else {
-                if(app.isRandom) {
-                    do {
-                        newIndex = Math.floor(Math.random() * app.songs.length);
-                    } while (newIndex == app.currentIndex);
-                    app.currentIndex = newIndex;
-                } else {
-                    app.currentIndex++;
-                    if(app.currentIndex >= app.songs.length) {
-                        app.currentIndex = 0
-                    }
-                }
+                nextBtn.click();
             }
-            app.loadCurrentSong();
-            audio.play();
         }
 
         // Highlight repeat btn
         repeatBtn.onclick = function () {
-            if(app.isRepeat){
-                app.isRepeat = false
+            if(!app.isRepeat){
+                app.isRepeat = true
                 repeatBtn.classList.add('active');
             } else {
-                app.isRepeat = true
+                app.isRepeat = false
                 repeatBtn.classList.remove('active');
             }
         }       
 
+        // Lắng nghe hành vì click vào playlist
+        playList.onclick = function (e) {
+            const songNode = e.target.closest('.song:not(.active)');
+            if(songNode || e.target.closest('.option')) {
+                // Xử lý khi click vào song
+                if(songNode) {
+                    // dataset.index = data-index
+                    app.currentIndex = Number(songNode.dataset.index) //convert sang number vì lấy giá trị trong data-index là string
+                    console.log(songNode.dataset.index);
+                    app.loadCurrentSong();
+                    if (app.isPLaying === true) {
+                        audio.play();
+                    } else {
+                        audio.pause();
+                    }
+                    app.render();
+                }
+                // Xử lý khi click vào option
+                if(e.target.closest('.option')) {
+
+                }
+            }
+        }
     },
     loadCurrentSong: function () {
         heading.textContent = this.currentSong.name;
@@ -271,7 +408,19 @@ const app = {
     formatTimer: function (number) {
         const minutes = Math.floor(number/ 60);
         const seconds = Math.floor(number - minutes * 60);
-        return `${minutes}:${seconds}`;
+        return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+    },
+    scrollToActiveSong: function() {
+        setTimeout(() => {
+            $('.song.active').scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }, 200)
+    },
+    changeVolume: function() {
+        const percentage = (volume.value - volume.min)/(volume.max - volume.min) * 100;
+        return 'background: linear-gradient(to right, #ec1f55, #ec1f55 ' + percentage + '%, #d3edff ' + percentage + '%, #dee1e2 100%)'
     },
     start: function() {
         // Định nghĩa các thuộc tính cho object
@@ -282,13 +431,17 @@ const app = {
         
         // Tải thông tin bài hát đầu tiền vào UI khi chạy ứng dụng
         this.loadCurrentSong();
-
+        
         // Chạy timer
         this.displayTimer();
         setInterval(() => {
             this.displayTimer();
         }, 500);
         
+        // Mặc định volume 
+        audio.volume = volume.value/100;
+        volume.style = this.changeVolume(volume.value)
+
         // Render playlist
         this.render();
     }
