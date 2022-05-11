@@ -13,6 +13,7 @@
 
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
+const PLAYER_STORAGE_KEY = 'DucAnh_Player';
 const playList = $('.playlist');
 const cd = $('.cd');
 const heading = $('header h2');
@@ -36,6 +37,11 @@ const app = {
     isRandom: false,
     isRepeat: false,
     isMute: false,
+    config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY)) || {},
+    setConfig: function(key, value) {
+        this.config[key] = value;
+        localStorage.setItem(PLAYER_STORAGE_KEY, JSON.stringify(this.config));
+    },
     songs: [
         {
             name: 'Em bé',
@@ -186,6 +192,7 @@ const app = {
         const htmls = this.songs.map((song, index) => {
             return `
                 <div class="song ${index === this.currentIndex ? 'active': ''}" data-index="${index}">
+                    <div class='index-song'>${index + 1}</div>
                     <div class="thumb" style="background-image: url('${song.image}')"></div>
                     <div class="body">
                         <h3 class="title">${song.name}</h3>
@@ -341,13 +348,9 @@ const app = {
 
         // Highlight random btn
         randomBtn.onclick = function () {
-            if(app.isRandom === false){
-                app.isRandom = true
-                randomBtn.classList.add('active');
-            } else {
-                app.isRandom = false
-                randomBtn.classList.remove('active');
-            }
+            app.isRandom = !app.isRandom;
+            app.setConfig('isRandom', app.isRandom);
+            randomBtn.classList.toggle('active', app.isRandom);
         }
 
         // Xừ lý song khi kết thúc
@@ -361,13 +364,9 @@ const app = {
 
         // Highlight repeat btn
         repeatBtn.onclick = function () {
-            if(!app.isRepeat){
-                app.isRepeat = true
-                repeatBtn.classList.add('active');
-            } else {
-                app.isRepeat = false
-                repeatBtn.classList.remove('active');
-            }
+            app.isRepeat = !app.isRepeat;
+            app.setConfig('isRepeat', app.isRepeat)
+            repeatBtn.classList.toggle('active', app.isRepeat);
         }       
 
         // Lắng nghe hành vì click vào playlist
@@ -399,6 +398,12 @@ const app = {
         cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`;
         audio.src = this.currentSong.path;
     },
+    loadConfig: function () {
+        this.isRandom = this.config.isRandom;
+        this.isRepeat = this.config.isRepeat;
+        randomBtn.classList.toggle('active', this.isRandom);
+        repeatBtn.classList.toggle('active', this.isRepeat);
+    },
     displayTimer: function () {
         const {duration, currentTime} = audio;
         remainingTime.textContent = this.formatTimer(currentTime);
@@ -426,6 +431,9 @@ const app = {
         return 'background: linear-gradient(to right, #ec1f55, #ec1f55 ' + percentage + '%, #d3edff ' + percentage + '%, #dee1e2 100%)'
     },
     start: function() {
+        // Gán cấu hình từ config vào app music(đọc từ local storage rồi gán vào ứng dụng)
+        this.loadConfig();
+
         // Định nghĩa các thuộc tính cho object
         this.defineProperties();
         
