@@ -76,6 +76,13 @@
   .form-group.invalid .form-message {
     color: #f33a58;
   }
+  .form-group.success .form-control {
+    border-color: #198754;
+  }
+  
+  .form-group.success .form-message {
+    color: #198754;
+  }
   
   .form-message {
     font-size: 1.2rem;
@@ -104,4 +111,18 @@
   .spacer {
     margin-top: 36px;
   }
-  
+  #gender {
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+  }
+
+  #gender div {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+  }
+  #gender div p {
+      margin-left: 10px;
+      font-size: 12px;
+  }
