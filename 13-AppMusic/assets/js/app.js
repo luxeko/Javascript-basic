@@ -357,6 +357,7 @@ const app = {
             if(app.isRepeat) {
                 audio.play();
             } else {
+                app.isPLaying = true;
                 nextBtn.click();
             }
         }
