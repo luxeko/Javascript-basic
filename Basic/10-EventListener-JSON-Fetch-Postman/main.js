@@ -37,7 +37,7 @@ setTimeout(function () {
 
 // ================= JSON =================
 // 1. Là một định dạng dữ liệu (chuỗi)
-// 2. Javascript Object Notatin
+// 2. Javascript Object Notation
 // 3. JSON: Number, String, Boolean, Null, Array, Object
 // Stringify: Từ Javascript types -> JSON
 // Parse: Từ JSON -> Javascript types 

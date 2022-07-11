@@ -141,7 +141,7 @@ Array.prototype.map2 = function(callback) {
     for(let i = 0; i < arrayLength; i++){
         // this[i]: lấy giá trị tại vị trí index = i;
         // i: lấy vị trị index
-        let result = callback(this[i]);
+        let result = callback(this[i], i);
         output.push(result);
     }
     return output;
@@ -178,7 +178,7 @@ console.log(htmlsForEach.join(''));
 Array.prototype.reduce2 = function(callback, result) {
     let arrayLength = this.length;
     let i = 0;
-    // console.log(arguments[2]);
+    // console.log(arguments[2]); => 'abc'
     if(arguments.length < 2) {
         i = 1
         result = this[0];
@@ -227,6 +227,7 @@ console.log(htmlsFind);
 Array.prototype.filter2 = function(callback) {
     let output = [], result;
     for(var index in this){
+        // hasOwnProperty: kiểm tra 1 một thuộc tính có tồn tại trong Object hay không
         if(this.hasOwnProperty(index)) {
             result = callback(this[index], index, this);
             if(result) {

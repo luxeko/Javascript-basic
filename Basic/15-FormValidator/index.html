@@ -61,23 +61,23 @@
       </div>
       <script src="./validator.js"></script>
       <script>
-          Validator({
-              form: '#form-1',
-              formGroupSelector: '.form-group',
-              messageSelector: '.form-message',
-              rules: [
-                  Validator.isRequired('#fullname', 'Vui lòng nhập họ và tên'),
-                  Validator.isEmail('#email'),
-                  Validator.isPassword('#password', 6),
-                  Validator.confirmPassword('#password_confirmation', function() { 
-                      return document.querySelector('#form-1 #password').value;
-                  }, 'Vui lòng nhập lại mật khẩu'),
-                  Validator.isRequired('input[name="gender"]', 'Vui lòng chọn giới tính')
-              ],
-              onSubmit: function(data) {
-                  // Call API và gửi đi data
-                  console.log(data);
-              }
+            Validator({
+                form: '#form-1',
+                formGroupSelector: '.form-group',
+                messageSelector: '.form-message',
+                rules: [
+                    Validator.isRequired('#fullname', 'Vui lòng nhập họ và tên'),
+                    Validator.isEmail('#email'),
+                    Validator.isPassword('#password', 6),
+                    Validator.confirmPassword('#password_confirmation', function() { 
+                        return document.querySelector('#form-1 #password').value;
+                    }, 'Vui lòng nhập lại mật khẩu'),
+                    Validator.isRequired('input[name="gender"]', 'Vui lòng chọn giới tính')
+                ],
+                onSubmit: function(data) {
+                    // Call API và gửi đi data
+                    console.log(data);
+                }
           })
       </script>
 </body>
