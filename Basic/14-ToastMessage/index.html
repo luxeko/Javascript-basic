@@ -10,9 +10,7 @@
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 </head>
 <body>
-    <div id="toast">
-       
-    </div>
+    <div id="toast"></div>
     <div>
         <div onclick="showSuccessToast();" class="btn btn--success">Show success toast</div>
         <div onclick="showErrorToast();" class="btn btn--danger">Show error toast</div>
@@ -45,7 +43,7 @@
                 const icon = icons[type];
               
                 toast.classList.add('toast', `toast--${type}`);
-                toast.style.animation = `slideInLeft ease 0.5s, fadeOut linear ${fadeOut}ms ${duration}ms  forwards`
+                toast.style.animation = `slideInLeft ease 0.5s, fadeOut linear ${fadeOut}ms ${duration}ms forwards`
                 toast.innerHTML = `
                     <div class="toast__icon">
                         <span class="material-icons-sharp">
@@ -65,7 +63,6 @@
                     </div>
                 `;
                 main.appendChild(toast);
-              
             }
         }
 

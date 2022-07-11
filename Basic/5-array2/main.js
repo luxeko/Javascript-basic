@@ -26,7 +26,6 @@ let courses = [
         coin: 15
     },
 ];
-
 // let newCourses = course.map(function(course) {
 //     return {
 //         id: course.id,
@@ -56,6 +55,7 @@ console.log(newCourses.join(' ')); // chuyển 1 mảng thành 1 chuỗi string
 // }
 // console.log(totalCoin);
 
+
 // Reduce Cách 1:
 let i = 0;
 function countHandler(accumulator, currentValue, currentIndex, originArray){
@@ -73,7 +73,7 @@ function countHandler(accumulator, currentValue, currentIndex, originArray){
 
 // gán mặc định totalCoin = 0 = accumulator ở lượt chạy đầu tiên
 let totalCoin = courses.reduce(countHandler, 0)
-console.log(totalCoin);
+console.log(totalCoin); // 25
 
 
 // Reduce Cách 2: 
@@ -194,6 +194,7 @@ let htmlsReduce = coursesReduce.reduce2(function(total, course) {
 }, 0, 'abc')
 console.log(htmlsReduce);
 
+
 // =================== find2() ===================
 let coursesFind = [
     {
@@ -256,6 +257,7 @@ let htmlsFilter = coursesFilter.filter2(function(course, index, arr){
 })
 console.log(htmlsFilter);
 
+
 // =================== some2() ===================
 Array.prototype.some2 = function(callback) {
     let output = false;
@@ -292,6 +294,7 @@ let resultSome = coursesSome.some2(function(course, index, arr) {
     return course.coin > 690;
 })
 console.log(resultSome);
+
 
 // =================== every2() ===================
 Array.prototype.every2 = function(callback) {

@@ -47,11 +47,11 @@ let json_boolean = 'true';
 let json_null = 'null';
 let json_array = '["Javascript", "PHP", "Reactjs"]';
 let json_object = '[{"name": "Duc Anh", "age": 19}, {"name": "Minh Hong", "age": 18}]';
-console.log(JSON.parse(json_number));
-console.log(JSON.parse(json_string));
-console.log(JSON.parse(json_boolean));
-console.log(JSON.parse(json_null));
-console.log(JSON.parse(json_array));
+console.log(JSON.parse(json_number)); // 1
+console.log(JSON.parse(json_string)); // 'Duc Anh'
+console.log(JSON.parse(json_boolean)); // true
+console.log(JSON.parse(json_null)); // null
+console.log(JSON.parse(json_array)); 
 console.log(JSON.parse(json_object));
 console.log(JSON.stringify('DUC ANH'));
 
