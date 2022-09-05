@@ -37,10 +37,18 @@ function renderProducts(products) {
 }
 
 function renderListPages(products) {
-    const totalPages = Math.ceil(100 / perPage);
+    const totalPages = Math.ceil(products.length / perPage);
     let htmls = `<li id="page_1" class="active"><a>${1}</a></li>`;
     for (let index = 2; index <= totalPages; index++) {
-        htmls += `<li id="page_${index}"><a>${index}</a></li>`;
+        if(index <= 5 ) {
+            htmls += `<li id="page_${index}"><a>${index}</a></li>`;
+        }
+        if(index == 6) {
+            htmls += `<li id="page_${index}"><a>...</a></li>`;
+        }
+        if(index > totalPages - 4) {
+            htmls += `<li id="page_${index}"><a>${index}</a></li>`;
+        }
     }
     document.querySelector(".pagination ul .number_pages").innerHTML = htmls;
     changePage();
@@ -125,3 +133,8 @@ function clickEvent(products) {
 }
 getProducts(clickEvent);
 
+let a = [1,2,3];
+let b = [1,2,4];
+
+let result = [...new Set([...a,...b])];
+console.log(result);
